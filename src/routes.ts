@@ -1,7 +1,8 @@
 import { Router } from "express";
+import buildCreateBook from "./useCases/books/create/buildCreateBook";
 
 const router = Router();
 
-router.get("/", (req, res) => res.send("Hello world!"));
+router.post("/books", (req, res) => buildCreateBook().handle(req, res));
 
 export { router };
