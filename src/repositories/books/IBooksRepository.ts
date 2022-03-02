@@ -19,4 +19,5 @@ export interface IBooksRepository {
     save(book: Book): Promise<void>;
     getBooks(options?: IGetBooksOptions): Promise<Book[]>;
     getBook(options: IGetBookOptions): Promise<Book>;
+    deleteBook(id: string): Promise<void>;
 }

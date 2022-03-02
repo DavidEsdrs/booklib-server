@@ -16,4 +16,8 @@ export class BooksRepository extends Repository<Book> implements IBooksRepositor
         const book = await this.findOne(id);
         return book;
     }
+
+    async deleteBook(id: string) {
+        await this.delete({ id });
+    }
 }
