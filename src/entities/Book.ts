@@ -16,6 +16,12 @@ export class Book {
     content: string;
 
     @Column()
+    excerpt: string;
+
+    @Column()
+    review: string;
+
+    @Column()
     published_at: Date;
 
     @CreateDateColumn()
