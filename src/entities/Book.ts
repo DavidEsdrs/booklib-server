@@ -15,10 +15,10 @@ export class Book {
     @Column()
     content: string;
 
-    @Column()
+    @Column({ nullable: true })
     excerpt: string;
 
-    @Column()
+    @Column({ nullable: true })
     review: string;
 
     @Column()

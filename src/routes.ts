@@ -11,6 +11,6 @@ router.post("/books", (req, res) => buildCreateBook().handle(req, res));
 router.get("/books", (req, res) => buildGetBooks().handle(req, res));
 router.get("/books/search/:id", (req, res) => buildGetBook().handle(req, res));
 router.delete("/books/:id", (req, res) => buildDeleteBook().handle(req, res));
-router.put("/books", (req, res) => buildReviewBook().handle(req, res));
+router.put("/books/:id", (req, res) => buildReviewBook().handle(req, res));
 
 export { router };
