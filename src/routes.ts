@@ -5,7 +5,7 @@ import { buildGetBooks } from "./useCases/books/getMany/buildGetBooks";
 import { buildGetBook } from "./useCases/books/getOne/buildGetBook";
 import { buildReviewBook } from "./useCases/books/review/buildReviewBook";
 import multer from "multer";
-import { uploadBook } from "./utils/UploadBook";
+import { uploadBook } from "./utils/UploadBookParser";
 
 const router = Router();
 
