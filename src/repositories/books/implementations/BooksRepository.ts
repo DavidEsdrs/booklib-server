@@ -7,7 +7,10 @@ export class BooksRepository extends Repository<Book> implements IBooksRepositor
     async getBooks(options?: { take?: number, relations?: string[] }) {
         const books = await this.find({ 
             take: options.take, 
-            relations: options.relations
+            relations: options.relations,
+            order: {
+                created_at: "DESC"
+            }
         });
         return books;
     }
