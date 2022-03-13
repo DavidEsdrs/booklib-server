@@ -43,7 +43,7 @@ class UploadBook {
         return (
             req: Request,
             file: Express.Multer.File,
-            cb: multer.FileFilterCallback
+            callback: multer.FileFilterCallback
         ) => {
             //Utilizaremos a Lib mime-types para identificar o tipo do arquivo
             const type = mime.extension(file.mimetype);
@@ -57,11 +57,11 @@ class UploadBook {
             //Perguntamos se existe algum desses valores no type
             if (conditions.includes(`${type}`)) {
                 //Caso exista, teremos nossa imagem linda maravilhosa
-                cb(null, true);
+                callback(null, true);
             }
     
             //Caso não de certo a validação não efetuaremos o upload
-            cb(null, false);
+            callback(null, false);
         };
     }
 
