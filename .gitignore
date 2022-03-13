@@ -6,3 +6,4 @@ tmp/
 temp/
 data/
 .env
+data/database.db
