@@ -12,17 +12,17 @@ class UploadBook {
     private storage(): multer.StorageEngine {
         return multer.diskStorage({
             //Criar o destino do arquivo
-            destination: (req, file, cb) => {
+            destination: (req, file, callback) => {
               //Verifica se não existe o diretório
               if (!fs.existsSync(this.URL)) {
                 //Efetua a criação do diretório caso ele não exista
                 fs.mkdirSync(this.URL);
               }
               //Define o caminho da pasta
-              cb(null, this.URL);
+              callback(null, this.URL);
             },
             //Renomeia o arquivo
-            filename: (req, file, cb) => {
+            filename: (req, file, callback) => {
               //Aqui vamos usar o mime-type para chegar o tipo do arquivo
               //E predefinir como ele veio até nosso sistema
               const type = mime.extension(file.mimetype);
@@ -30,7 +30,7 @@ class UploadBook {
               //Renomeia o nome do arquivo
               //Aqui temos o nome do arquivo gerado pelo Date
               //E colocamos a extensão dele de acordo com o mime-type
-              cb(null, `${new Date().getTime()}.${type}`);
+              callback(null, `${new Date().getTime()}.${type}`);
             },
           });
     }
