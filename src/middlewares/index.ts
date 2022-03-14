@@ -1,0 +1,1 @@
+export { default as validateBook } from "./validateBook";
