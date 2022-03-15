@@ -22,6 +22,9 @@ export class addFavoritedByColumnInBooksTable1647306715711 implements MigrationI
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+
+        await queryRunner.dropForeignKey("books", "books_users_fk");
+        await queryRunner.dropColumn("books", "favorited_by");
     }
 
 }
