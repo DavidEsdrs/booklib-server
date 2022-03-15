@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Book } from "./Book";
 
 @Entity("users")
 export class User {
@@ -20,6 +21,10 @@ export class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToMany(() => Book, book => book.favorited_by)
+    @JoinTable()
+    favorited_books: Book[];
 
     constructor() {
         if(!this.id) {
