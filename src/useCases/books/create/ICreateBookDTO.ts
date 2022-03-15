@@ -1,9 +1,7 @@
-type File = any;
-
 export interface ICreateBookDTO {
     title: string;
     author?: string;
     excerpt: string;
-    content: File;
+    content: Buffer;
     published_at: Date;
 }
