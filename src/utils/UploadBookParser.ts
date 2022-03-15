@@ -13,26 +13,30 @@ class UploadBook {
         return multer.diskStorage({
             //Criar o destino do arquivo
             destination: (req, file, callback) => {
-              //Verifica se não existe o diretório
-              if (!fs.existsSync(this.URL)) {
-                //Efetua a criação do diretório caso ele não exista
-                fs.mkdirSync(this.URL);
-              }
-              //Define o caminho da pasta
-              callback(null, this.URL);
+                //Verifica se não existe o diretório
+                if (!fs.existsSync(this.URL)) {
+                    //Efetua a criação do diretório caso ele não exista
+                    fs.mkdirSync(this.URL);
+                }
+                //Define o caminho da pasta
+                callback(null, this.URL);
             },
             //Renomeia o arquivo
             filename: (req, file, callback) => {
-              //Aqui vamos usar o mime-type para chegar o tipo do arquivo
-              //E predefinir como ele veio até nosso sistema
-              const type = mime.extension(file.mimetype);
-      
-              //Renomeia o nome do arquivo
-              //Aqui temos o nome do arquivo gerado pelo Date
-              //E colocamos a extensão dele de acordo com o mime-type
-              callback(null, `${new Date().getTime()}.${type}`);
+                //Aqui vamos usar o mime-type para chegar o tipo do arquivo
+                //E predefinir como ele veio até nosso sistema
+                const type = mime.extension(file.mimetype);
+        
+                //Renomeia o nome do arquivo
+                //Aqui temos o nome do arquivo gerado pelo Date
+                //E colocamos a extensão dele de acordo com o mime-type
+                callback(null, `${new Date().getTime()}.${type}`);
             },
           });
+    }
+
+    private memStorage(): multer.StorageEngine {
+        return multer.memoryStorage()
     }
 
     private fileFilter() {
@@ -73,7 +77,7 @@ class UploadBook {
         */
         return {
             //Storage serve para compor a config do multer destination e filename
-            storage: this.storage(),
+            storage: this.memStorage(),
             //FileFilter serve para validar o filtro de arquivos
             fileFilter: this.fileFilter(),
         };
