@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { Book } from "../../../entities/Book";
+import { Merge } from "../../../utils/types";
 import { ICreateBookDTO } from "./ICreateBookDTO";
 
 interface ICreateBookService {
-    execute(args: ICreateBookDTO): Promise<Book>;
+    execute(args: ICreateBookDTO): Promise<Merge<Book, { content: string }>>;
 }
 
 export class CreateBookController {
@@ -18,3 +19,4 @@ export class CreateBookController {
         return res.json(book);
     }
 }
+
