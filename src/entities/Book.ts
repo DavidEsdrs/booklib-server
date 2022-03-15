@@ -12,8 +12,8 @@ export class Book {
     @Column()
     author: string;
 
-    @Column()
-    content: string;
+    @Column({ type: "blob" })
+    content: Buffer;
 
     @Column({ nullable: true })
     excerpt: string;
