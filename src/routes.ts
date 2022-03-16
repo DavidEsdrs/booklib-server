@@ -9,6 +9,7 @@ import { uploadBook } from "./utils/UploadBookParser";
 import { buildCreateUser } from "./useCases/users/create/buildCreateUser";
 import { validateBook } from "./middlewares";
 import { validateUser } from "./middlewares/validateUser";
+import { buildLogin } from "./useCases/users/login/buildLogin";
 
 const router = Router();
 
@@ -19,5 +20,6 @@ router.delete("/books/:id", (req, res) => buildDeleteBook().handle(req, res));
 router.put("/books/:id", (req, res) => buildReviewBook().handle(req, res));
 
 router.post("/users", validateUser, (req, res) => buildCreateUser().handle(req, res));
+router.post("/login", (req, res) => buildLogin().handle(req, res));
 
 export { router };
