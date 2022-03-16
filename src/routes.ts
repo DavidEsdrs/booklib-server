@@ -10,10 +10,11 @@ import { buildCreateUser } from "./useCases/users/create/buildCreateUser";
 import { validateBook } from "./middlewares";
 import { validateUser } from "./middlewares/validateUser";
 import { buildLogin } from "./useCases/users/login/buildLogin";
+import { ensureAuthenticatedUser } from "./middlewares/ensureAuthenticatedUser";
 
 const router = Router();
 
-router.post("/books", multer(uploadBook.getConfig).single("content"), validateBook, (req, res) => buildCreateBook().handle(req, res));
+router.post("/books", ensureAuthenticatedUser, multer(uploadBook.getConfig).single("content"), validateBook, (req, res) => buildCreateBook().handle(req, res));
 router.get("/books", (req, res) => buildGetBooks().handle(req, res));
 router.get("/books/search/:id", (req, res) => buildGetBook().handle(req, res));
 router.delete("/books/:id", (req, res) => buildDeleteBook().handle(req, res));
