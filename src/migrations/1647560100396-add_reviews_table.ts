@@ -18,7 +18,7 @@ export class addReviewsTable1647560100396 implements MigrationInterface {
                 },
                 {
                     name: "book",
-                    type: "varchar"
+                    type: "varchar",
                 },
                 {
                     name: "created_at",
