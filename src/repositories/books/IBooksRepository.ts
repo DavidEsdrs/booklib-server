@@ -21,4 +21,5 @@ export interface IBooksRepository {
     getBook(options: IGetBookOptions): Promise<Book>;
     deleteBook(id: string): Promise<void>;
     review(args: { id: string, review: string }): Promise<void>;
+    findOne(args: Partial<Book>): Promise<Book>;
 }
