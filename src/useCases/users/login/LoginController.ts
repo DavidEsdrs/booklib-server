@@ -12,6 +12,6 @@ export class LoginController {
     async handle(req: Request, res: Response) {
         const { email, username, password } = req.body;
         const token = await this.service.execute({ email, username, password });
-        return res.json(token);
+        return res.json({ token });
     }
 }
