@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Book } from "./Book";
+import { Review } from "./Review";
 
 @Entity("users")
 export class User {
@@ -25,6 +26,10 @@ export class User {
     @ManyToMany(() => Book, book => book.favorited_by)
     @JoinTable()
     favorited_books: Book[];
+
+    @OneToMany(() => Review, review => review.user)
+    @JoinColumn()
+    reviews: Review[];
 
     constructor() {
         if(!this.id) {
