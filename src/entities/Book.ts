@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Review } from "./Review";
 import { User } from "./User";
 
 @Entity("books")
@@ -14,13 +15,14 @@ export class Book {
     author: string;
 
     @Column({ type: "blob" })
-    content: Buffer;
+    content: any;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true }) 
     excerpt: string;
 
-    @Column({ nullable: true })
-    review: string;
+    @OneToMany(() => Review, review => review.book)
+    @JoinColumn()
+    reviews: Review[];
 
     @Column()
     published_at: Date;
