@@ -19,7 +19,7 @@ Server app made with typescript, express and typeorm
 - [X] Get a single book
 - [X] Delete a book
 - [X] Review a book
-- [ ] Create user (TODO)
+- [X] Create user (TODO)
 - [ ] Favorite books (TODO)
 - [ ] See reviews from other users (TODO)
 
