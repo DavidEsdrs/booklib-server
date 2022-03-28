@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToMany, Pr
 import { v4 as uuid } from "uuid";
 import { Review } from "./Review";
 import { User } from "./User";
+import { Exclude } from "class-transformer";
 
 @Entity("books")
 export class Book {
@@ -14,6 +15,7 @@ export class Book {
     @Column()
     author: string;
 
+    @Exclude()
     @Column({ type: "blob" })
     content: any;
 
