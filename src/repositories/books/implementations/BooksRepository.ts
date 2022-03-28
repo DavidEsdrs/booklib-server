@@ -23,8 +23,4 @@ export class BooksRepository extends Repository<Book> implements IBooksRepositor
     async deleteBook(id: string) {
         await this.delete({ id });
     }
-
-    async review({ id, review }: { id: string; review: string; }) {
-        await this.update({ id }, { review });
-    }
 }
