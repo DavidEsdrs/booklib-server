@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, On
 import { v4 as uuid } from "uuid";
 import { Book } from "./Book";
 import { Review } from "./Review";
+import { Exclude } from "class-transformer";
 
 @Entity("users")
 export class User {
@@ -14,6 +15,7 @@ export class User {
     @Column()
     email: string;
 
+    @Exclude()
     @Column()
     password: string;
 
