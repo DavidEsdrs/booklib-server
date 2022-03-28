@@ -4,6 +4,6 @@ import { Request } from "express";
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     if(err) {
-        return res.json({ error: err.name, message: err.message, status: 500 });
+        return res.json({ error: err.name, message: err.message, status: 400 });
     }
 }
