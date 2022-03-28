@@ -1,4 +1,4 @@
-import { CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Book } from "./Book";
 import { User } from "./User";
 import { v4 as uuid } from "uuid";
@@ -8,11 +8,14 @@ export class Review {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, user => user.reviews)
     user: User;
 
     @ManyToOne(() => Book, book => book.reviews)
     book: Book;
+
+    @Column()
+    content: string;
 
     @CreateDateColumn()
     created_at: Date;
