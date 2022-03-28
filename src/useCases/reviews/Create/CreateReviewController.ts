@@ -13,7 +13,8 @@ export class CreateReviewController {
     async handle(req: Request, res: Response) {
         const { user_id: user } = req;
         const { book } = req.params;
-        const review = await this.service.execute({ user, book });
+        const { content } = req.body;
+        const review = await this.service.execute({ user, book, content });
         return res.json(review);
     }
 }

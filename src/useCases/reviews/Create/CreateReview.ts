@@ -8,12 +8,13 @@ import { instanceToPlain } from "class-transformer";
 export class CreateReview {
     constructor(private reviewsRepo: IReviewsRepository, private usersRepo: IUsersRepository, private booksRepo: IBooksRepository) {}
 
-    async execute({ book, user }: ICreateReviewDTO) {
+    async execute({ book, user, content }: ICreateReviewDTO) {
         const userEntity = await this.usersRepo.findOne({ id: user });
         const bookEntity = await this.booksRepo.findOne({ id: book });
         const review = this.reviewsRepo.create({
             book: bookEntity,
-            user: userEntity
+            user: userEntity,
+            content
         });
         await this.reviewsRepo.save(review);
         return instanceToPlain(review) as Review;
