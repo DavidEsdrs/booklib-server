@@ -15,7 +15,7 @@ import { buildReadUser } from "./useCases/users/read/buildReadUser";
 
 const router = Router();
 
-router.post("/books", ensureAuthenticatedUser, validateBook, multer(uploadBook.getConfig).single("content"), (req, res) => buildCreateBook().handle(req, res));
+router.post("/books", ensureAuthenticatedUser, uploadBook, validateBook, (req, res) => buildCreateBook().handle(req, res));
 router.get("/books", (req, res) => buildGetBooks().handle(req, res));
 router.get("/books/search/:id", (req, res) => buildGetBook().handle(req, res));
 router.delete("/books/:id",  (req, res) => buildDeleteBook().handle(req, res));
