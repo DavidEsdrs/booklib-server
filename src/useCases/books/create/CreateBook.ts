@@ -5,7 +5,6 @@ export class CreateBook {
     constructor(private booksRepo: IBooksRepository) {}
 
     async execute(createBookDTO: ICreateBookDTO) {
-        // Buffer.from(createBookDTO.content.buffer)
         const book = this.booksRepo.create({
             ...createBookDTO,
             content: createBookDTO.content
