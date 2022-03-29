@@ -10,7 +10,17 @@ class ServerError extends Error {
 }
 
 class InvalidBodyError extends ServerError {
-    constructor({ message = "The given body is invalid!", args }: { message: string, args?: any }) {
+    constructor({ message = "The given body is invalid!", args }: { message?: string, args?: any }) {
+        super({
+            message,
+            status: 403,
+            args
+        });
+    }
+}
+
+class InvalidFileTypeError extends ServerError {
+    constructor({ message = "The given file type isn't suported!", args }: { message?: string, args?: any }) {
         super({
             message,
             status: 403,
@@ -21,5 +31,6 @@ class InvalidBodyError extends ServerError {
 
 export {
     ServerError,
-    InvalidBodyError
+    InvalidBodyError,
+    InvalidFileTypeError
 }
