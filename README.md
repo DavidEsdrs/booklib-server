@@ -15,9 +15,11 @@ Server app made with typescript, express and typeorm
 <h2 align="center"> Features </h2>
 
 - [X] CRUD operations with books
+- [X] Request body validation
 - [X] Review a book
 - [X] Create user
 - [X] Login with jwt
+- [X] Download books
 - [ ] See reviews from other users (TODO)
 
 ------------------------------------
@@ -28,6 +30,9 @@ Server app made with typescript, express and typeorm
 - Express
 - TypeORM
 - Sqlite
+- argon2
+- multer
+- joi
 
 -------------------------------------
 
