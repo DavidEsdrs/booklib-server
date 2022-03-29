@@ -4,12 +4,10 @@ import fs from "fs";
 import mime from "mime";
 import { Request } from "express";
 
-class UploadBook {
-    private URL: string = path.basename("uploads");
+const bookUpload = {
+    URL: path.basename("uploads"),
 
-    constructor() {}
-
-    private storage(): multer.StorageEngine {
+    storage(): multer.StorageEngine {
         return multer.diskStorage({
             //Criar o destino do arquivo
             destination: (req, file, callback) => {
@@ -33,13 +31,13 @@ class UploadBook {
                 callback(null, `${new Date().getTime()}.${type}`);
             },
           });
-    }
+    },
 
-    private memStorage(): multer.StorageEngine {
+    memStorage(): multer.StorageEngine {
         return multer.memoryStorage()
-    }
+    },
 
-    private fileFilter() {
+    fileFilter() {
         /*
         Essa configuração vai nos ajudar com 
         1 - A validação do arquivo
@@ -67,9 +65,9 @@ class UploadBook {
             //Caso não de certo a validação não efetuaremos o upload
             callback(null, false);
         };
-    }
+    },
 
-    get getConfig(): multer.Options {
+    getConfig(): multer.Options {
         /*
         Essa configuração vai nos ajudar com 
         1 - A compor as configs do Multer como Middleware em nossas rotas
@@ -77,11 +75,11 @@ class UploadBook {
         */
         return {
             //Storage serve para compor a config do multer destination e filename
-            storage: this.memStorage(),
+            storage: bookUpload.memStorage(),
             //FileFilter serve para validar o filtro de arquivos
-            fileFilter: this.fileFilter(),
+            fileFilter: bookUpload.fileFilter(),
         };
     }
 }
 
-export const uploadBook = new UploadBook();
+export const uploadBook = multer(bookUpload.getConfig()).single("content");
