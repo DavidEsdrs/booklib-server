@@ -1,6 +1,7 @@
 import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
 import { ICreateUserDTO } from "./ICreateUserDTO";
 import { hash } from "argon2";
+import { UserAlreadyExistsError } from "../../../errors/ServerError";
 
 export class CreateUser {
     constructor(private usersRepo: IUsersRepository) {}
@@ -9,7 +10,7 @@ export class CreateUser {
         const userAlreadyExists = await this.usersRepo.usersAlreadyExists(email);
         
         if(userAlreadyExists) {
-            throw new Error("User already exists!");
+            throw new UserAlreadyExistsError();
         }
 
         const passwordHash = await hash(password);
