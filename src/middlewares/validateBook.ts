@@ -2,6 +2,7 @@ import { Response } from "express";
 import { NextFunction } from "express";
 import { Request } from "express";
 import Joi from "joi"
+import { InvalidBodyError } from "../errors/ServerError";
 
 const validateBook = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
@@ -40,13 +41,13 @@ const validateBook = (req: Request, res: Response, next: NextFunction) => {
             default(new Date())
     });
 
-    const { error } = schema.validate(req.body);
+    const { error } = schema.validate({ ...req.body, content: req.file });
 
     if(error) {
-        throw new Error("Invalid body!");
+        throw new InvalidBodyError({ message: error.message, args: error.details });
     }
 
-    next();
+    return next();
 }
 
 export default validateBook;
