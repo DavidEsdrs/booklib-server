@@ -19,12 +19,12 @@ const bookUpload = {
 
             filename: (req, file, cb) => {
                 const type = mime.extension(file.mimetype);
-                const now = new Date().getTime()
+                const name = `${new Date().getTime()}-${req.body.title.replaceAll(" ", "-")}.${type}`
                 req.file_props = {
                     ...req.file_props,
-                    file_name: String(now)
+                    file_name: name
                 }
-                cb(null, `${now}-${req.body.title.replaceAll(" ", "-")}.${type}`);
+                cb(null, name);
             }
         });
     },
