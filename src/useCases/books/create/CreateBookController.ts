@@ -13,7 +13,7 @@ export class CreateBookController {
     async handle(req: Request, res: Response) {
         const content = {
             ...req.body,
-            content: req.file
+            content: String(new Date().getTime()) + "-" + req.body.title.replaceAll(" ", "-") + "." + req.file_type
         };
         const book = await this.service.execute(content);
         return res.json(book);

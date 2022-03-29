@@ -2,6 +2,6 @@ export interface ICreateBookDTO {
     title: string;
     author?: string;
     excerpt: string;
-    content: Buffer;
+    content: string;
     published_at: Date;
 }
