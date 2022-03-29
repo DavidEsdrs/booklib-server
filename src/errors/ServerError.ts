@@ -29,8 +29,18 @@ class InvalidFileTypeError extends ServerError {
     }
 }
 
+class UserAlreadyExistsError extends ServerError {
+    constructor(message: string = "The given user already exists!") {
+        super({
+            message,
+            status: 409,
+        });
+    }
+}
+
 export {
     ServerError,
     InvalidBodyError,
-    InvalidFileTypeError
+    InvalidFileTypeError,
+    UserAlreadyExistsError
 }
