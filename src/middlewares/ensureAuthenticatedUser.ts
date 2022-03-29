@@ -17,7 +17,7 @@ export const ensureAuthenticatedUser = (req: Request, res: Response, next: NextF
     try {
         const { sub } = verify(token, process.env.JWT_SECRET) as IPayload;
         req.user_id = sub;
-        next();
+        return next();
     }
 
     catch {
