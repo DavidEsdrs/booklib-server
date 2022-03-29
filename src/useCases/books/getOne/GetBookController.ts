@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Book } from "../../../entities/Book";
+import { getUrl } from "../../../utils/getUrl";
 import { IGetBooksDTO } from "../getMany/IGetBooksDTO";
 import { IGetBookDTO } from "./IGetBookDTO";
 
@@ -15,6 +16,9 @@ export class GetBookController {
     async handle(req: Request, res: Response) {
         const { id } = req.params;
         const book = await this.service.execute({ id });
-        return res.json(book);
-    }
+        return res.json({
+            ...book,
+            content_url: getUrl(req) + "/download"
+        });
+    }   
 }
