@@ -3,34 +3,26 @@ import path from "path";
 import fs from "fs";
 import mime from "mime";
 import { Request } from "express";
+import { InvalidFileTypeError } from "../errors/ServerError";
 
 const bookUpload = {
     URL: path.basename("uploads"),
 
     storage(): multer.StorageEngine {
         return multer.diskStorage({
-            //Criar o destino do arquivo
-            destination: (req, file, callback) => {
-                //Verifica se não existe o diretório
-                if (!fs.existsSync(this.URL)) {
-                    //Efetua a criação do diretório caso ele não exista
-                    fs.mkdirSync(this.URL);
+            destination: (req, file, cb) => {
+                if (!fs.existsSync(bookUpload.URL)) {
+                    fs.mkdirSync(bookUpload.URL);
                 }
-                //Define o caminho da pasta
-                callback(null, this.URL);
+                cb(null, bookUpload.URL);
             },
-            //Renomeia o arquivo
-            filename: (req, file, callback) => {
-                //Aqui vamos usar o mime-type para chegar o tipo do arquivo
-                //E predefinir como ele veio até nosso sistema
+
+            filename: (req, file, cb) => {
                 const type = mime.extension(file.mimetype);
-        
-                //Renomeia o nome do arquivo
-                //Aqui temos o nome do arquivo gerado pelo Date
-                //E colocamos a extensão dele de acordo com o mime-type
-                callback(null, `${new Date().getTime()}.${type}`);
-            },
-          });
+                req.file_type = type;
+                cb(null, `${new Date().getTime()}-${req.body.title}.${type}`);
+            }
+        });
     },
 
     memStorage(): multer.StorageEngine {
@@ -38,45 +30,21 @@ const bookUpload = {
     },
 
     fileFilter() {
-        /*
-        Essa configuração vai nos ajudar com 
-        1 - A validação do arquivo
-        */
-        return (
-            req: Request,
-            file: Express.Multer.File,
-            callback: multer.FileFilterCallback
-        ) => {
-            //Utilizaremos a Lib mime-types para identificar o tipo do arquivo
+        return (req: Request, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
             const type = mime.extension(file.mimetype);
-    
-            /* 
-            Este array será montado a conditions de validação
-            No caso aceitará apenas imagens como "png", "jpg", "jpeg"
-            */
             const conditions = ["pdf", "docx"];
     
-            //Perguntamos se existe algum desses valores no type
-            if (conditions.includes(`${type}`)) {
-                //Caso exista, teremos nossa imagem linda maravilhosa
-                callback(null, true);
+            if (!conditions.includes(type)) {
+                return callback(new InvalidFileTypeError({ message: "Unsuported file type!" }));
             }
     
-            //Caso não de certo a validação não efetuaremos o upload
-            callback(null, false);
+            callback(null, true);
         };
     },
 
     getConfig(): multer.Options {
-        /*
-        Essa configuração vai nos ajudar com 
-        1 - A compor as configs do Multer como Middleware em nossas rotas
-        2 - Não será um middleware global e sim para usos unicos e comportamentais
-        */
         return {
-            //Storage serve para compor a config do multer destination e filename
             storage: bookUpload.storage(),
-            //FileFilter serve para validar o filtro de arquivos
             fileFilter: bookUpload.fileFilter(),
         };
     }
