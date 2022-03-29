@@ -75,7 +75,7 @@ const bookUpload = {
         */
         return {
             //Storage serve para compor a config do multer destination e filename
-            storage: bookUpload.memStorage(),
+            storage: bookUpload.storage(),
             //FileFilter serve para validar o filtro de arquivos
             fileFilter: bookUpload.fileFilter(),
         };
