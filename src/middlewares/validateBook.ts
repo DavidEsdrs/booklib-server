@@ -6,9 +6,6 @@ import { InvalidBodyError } from "../errors/ServerError";
 
 const validateBook = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        content: Joi.any().
-            required(),
-
         title: Joi.string().
             required().
             min(1).
@@ -41,7 +38,7 @@ const validateBook = (req: Request, res: Response, next: NextFunction) => {
             default(new Date())
     });
 
-    const { error } = schema.validate({ ...req.body, content: req.file });
+    const { error } = schema.validate(req.body);
 
     if(error) {
         throw new InvalidBodyError({ message: error.message, args: error.details });
