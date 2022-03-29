@@ -14,13 +14,10 @@ Server app made with typescript, express and typeorm
 
 <h2 align="center"> Features </h2>
 
-- [X] Add new books
-- [X] Get all books
-- [X] Get a single book
-- [X] Delete a book
+- [X] CRUD operations with books
 - [X] Review a book
 - [X] Create user
-- [ ] Favorite books (TODO)
+- [X] Login with jwt
 - [ ] See reviews from other users (TODO)
 
 ------------------------------------
