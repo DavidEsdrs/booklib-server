@@ -2,6 +2,8 @@ import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
 import { ICreateUserDTO } from "./ICreateUserDTO";
 import { hash } from "argon2";
 import { UserAlreadyExistsError } from "../../../errors/ServerError";
+import { instanceToPlain } from "class-transformer";
+import { User } from "../../../entities/User";
 
 export class CreateUser {
     constructor(private usersRepo: IUsersRepository) {}
@@ -16,6 +18,6 @@ export class CreateUser {
         const passwordHash = await hash(password);
         const user = this.usersRepo.create({ email, username, password: passwordHash });
         await this.usersRepo.save(user);
-        return user;
+        return instanceToPlain(user) as User;
     }
 }
