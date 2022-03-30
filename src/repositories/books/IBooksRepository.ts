@@ -12,6 +12,7 @@ export interface IGetBookOptions {
     published_before?: Date;
     published_after?: Date;
     created_at?: Date;
+    relations?: string[];
 }
 
 export interface IBooksRepository {
@@ -19,6 +20,6 @@ export interface IBooksRepository {
     save(book: Book): Promise<void>;
     getBooks(options?: IGetBooksOptions): Promise<Book[]>;
     getBook(options: IGetBookOptions): Promise<Book>;
-    deleteBook(id: string): Promise<void>;
+    deleteBook({ id, file }: { id: string, file: string }): Promise<void>;
     findOne(args: Partial<Book>): Promise<Book>;
 }
