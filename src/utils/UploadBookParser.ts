@@ -21,7 +21,7 @@ const bookUpload = {
                 const type = mime.extension(file.mimetype);
                 const name = `${new Date().getTime()}-${req.body.title.replaceAll(" ", "-")}.${type}`
                 req.file_props = {
-                    ...req.file_props,
+                    file_type: type,
                     file_name: name
                 }
                 cb(null, name);
@@ -37,10 +37,6 @@ const bookUpload = {
         return (req: Request, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
             const type = mime.extension(file.mimetype);
             const conditions = ["pdf", "docx"];
-            req.file_props = {
-                ...req.file_props,
-                file_type: type
-            }
     
             if (!conditions.includes(type)) {
                 return callback(new InvalidFileTypeError({ message: "Unsuported file type!" }));
