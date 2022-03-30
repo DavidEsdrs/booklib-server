@@ -38,9 +38,19 @@ class UserAlreadyExistsError extends ServerError {
     }
 }
 
+class UnauthorizedRequestError extends ServerError {
+    constructor(message: string = "The request is unnauthorized!") {
+        super({
+            message,
+            status: 401
+        });
+    }
+}
+
 export {
     ServerError,
     InvalidBodyError,
     InvalidFileTypeError,
-    UserAlreadyExistsError
+    UserAlreadyExistsError,
+    UnauthorizedRequestError
 }
