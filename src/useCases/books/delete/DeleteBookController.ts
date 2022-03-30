@@ -10,7 +10,8 @@ export class DeleteBookController {
 
     async handle(req: Request, res: Response) {
         const { id } = req.params;
-        const result = await this.service.execute({ id });
+        const { user_id: user } = req;
+        const result = await this.service.execute({ id, user });
         return res.json(result);
     }
 }
