@@ -1,6 +1,9 @@
 import { EntityRepository, MoreThan, Repository } from "typeorm";
 import { Book } from "../../../entities/Book";
 import { IBooksRepository, IGetBookOptions } from "../IBooksRepository";
+import { unlink } from "fs";
+import { resolve } from "path";
+import { promisify } from "util";
 
 @EntityRepository(Book)
 export class BooksRepository extends Repository<Book> implements IBooksRepository {
@@ -15,12 +18,20 @@ export class BooksRepository extends Repository<Book> implements IBooksRepositor
         return books;
     }
 
-    async getBook({ id  }: IGetBookOptions) {
-        const book = await this.findOne(id);
+    async getBook({ id, relations  }: IGetBookOptions) {
+        const book = await this.findOne(id, { relations });
         return book;
     }
 
-    async deleteBook(id: string) {
-        await this.delete({ id });
+    async deleteBook({ id, file }: { id: string, file: string }) {
+        const removeFileAsync = promisify(unlink);
+        try {
+            await removeFileAsync(resolve(__dirname, "..", "..", "..", "..", "uploads", file));
+            await this.delete({ id });
+        }
+        catch(err) {
+            console.error({err})
+            throw new Error("Can't remove file!");
+        }
     }
 }
