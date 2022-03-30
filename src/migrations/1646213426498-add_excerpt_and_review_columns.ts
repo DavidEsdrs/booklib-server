@@ -4,18 +4,11 @@ export class addExcerptAndReviewColumns1646213426498 implements MigrationInterfa
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
-        await queryRunner.addColumns("books", [
-            new TableColumn({
-                name: "excerpt",
-                type: "varchar",
-                isNullable: true
-            }),
-            new TableColumn({
-                name: "review",
-                type: "varchar",
-                isNullable: true
-            })
-        ]);
+        await queryRunner.addColumn("books", new TableColumn({
+            name: "excerpt",
+            type: "varchar",
+            isNullable: true
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
